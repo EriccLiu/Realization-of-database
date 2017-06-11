@@ -1,4 +1,4 @@
-﻿生成启动时间为 2017/6/11 20:01:48。
+﻿生成启动时间为 2017/6/11 23:37:34。
      1>项目“E:\CS\Visual Studio\数据库实验四\数据库实验四\数据库实验四.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          E:\CS\2010\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TC /analyze- /errorReport:prompt main.c
@@ -49,10 +49,27 @@
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1532): warning C4098: “Hash_Join”:“void”函数返回值
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1545): warning C4098: “Hash_Join”:“void”函数返回值
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1574): warning C4098: “Hash_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1597): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1602): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1591): warning C4098: “Union”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1606): warning C4098: “Union”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1621): warning C4098: “Union”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1653): warning C4098: “Union”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1665): warning C4098: “Union”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1687): warning C4098: “Union”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1710): warning C4098: “Union”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1726): warning C4098: “Intersection”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1741): warning C4098: “Intersection”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1753): warning C4098: “Intersection”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1775): warning C4098: “Intersection”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1798): warning C4098: “Intersection”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1815): warning C4098: “Difference”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1829): warning C4098: “Difference”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1841): warning C4098: “Difference”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1863): warning C4098: “Difference”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1886): warning C4098: “Difference”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1893): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1898): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
          c:\program files (x86)\windows kits\10\include\10.0.10150.0\ucrt\stdio.h(1270): note: 参见“scanf”的声明
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1645): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1941): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
          c:\program files (x86)\windows kits\10\include\10.0.10150.0\ucrt\stdio.h(1270): note: 参见“scanf”的声明
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(203): warning C4715: “readRelation”: 不是所有的控件路径都返回值
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(245): warning C4715: “readProjection”: 不是所有的控件路径都返回值
@@ -68,4 +85,4 @@
 
 已成功生成。
 
-已用时间 00:00:00.56
+已用时间 00:00:01.66

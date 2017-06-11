@@ -1169,7 +1169,7 @@ blk = getNewBlockInBuffer(&buf);
 /* Read the block from the hard disk *
 if ((blk = readBlockFromDisk(addr, &buf)) == NULL)
 {
-perror("readRelation-Reading Block Failed!\n");
+perror("Reading Block Failed!\n");
 return -1;
 }
 if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
@@ -1580,17 +1580,313 @@ void Hash_Join()
 
 void Union()
 {
+	Buffer buf;
+	unsigned char* input_blk, *output_blk, *compare_blk;
+	int i, j, current_addr, save_addr, output_size, R_current_addr, flag;
 
+	/*initialize the buffer for relation*/
+	if (!initBuffer(buf_size * 8, blk_size * 8, &buf))
+	{
+	perror("Buffer R Initialization Failed!\n");
+	return -1;
+	}
+
+	/*get a new block in buffer to generate data of relation*/
+	output_blk = getNewBlockInBuffer(&buf);
+
+	/*copy R to union set*/
+	current_addr = Raddr;
+	save_addr = Union_addr;
+	output_size = 0;
+	while (current_addr != 0)
+	{
+		if ((input_blk = readBlockFromDisk(current_addr, &buf)) == NULL)
+		{
+			perror("Reading Block Failed!\n");
+			return -1;
+		}
+		if (*(int*)(input_blk + 60) != 0)
+		{
+			for (i = 0; i < blk_size - 1; i++)
+			{
+				printf("%d,%d\t", *(int*)(input_blk + i * 8), *(int*)(input_blk + i * 8 + 4));
+				*(int*)(output_blk + i * 8) = *(int*)(input_blk + i * 8);
+				*(int*)(output_blk + i * 8 + 4) = *(int*)(input_blk + i * 8 + 4);
+			}
+			*(int*)(output_blk + 60) = save_addr + 1;
+			current_addr = *(int*)(input_blk + 60);
+			if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+			{
+				perror("Writing Block Failed!\n");
+				return -1;
+			}
+			printf("\n");
+			freeBlockInBuffer(input_blk, &buf);
+			output_blk = getNewBlockInBuffer(&buf);
+			save_addr++;
+		}
+		else
+		{
+			for (i = 0; i < blk_size; i++)
+			{
+				if (*(int*)(input_blk + i * 8) == 0)
+				{
+					output_size = i;
+					break;
+				}
+				printf("%d,%d\t", *(int*)(input_blk + i * 8), *(int*)(input_blk + i * 8 + 4));
+				*(int*)(output_blk + i * 8) = *(int*)(input_blk + i * 8);
+				*(int*)(output_blk + i * 8 + 4) = *(int*)(input_blk + i * 8 + 4);
+			}
+			current_addr = *(int*)(input_blk + 60);
+			freeBlockInBuffer(input_blk, &buf);
+		}
+	}
+
+	/*remove same tuple*/
+	current_addr = Saddr;
+	while (current_addr != 0)
+	{
+		if ((input_blk = readBlockFromDisk(current_addr, &buf)) == NULL)
+		{
+			perror("Reading Block Failed!\n");
+			return -1;
+		}
+
+		for (i = 0; i < blk_size - 1; i++)
+		{
+			flag = 0;
+			R_current_addr = Raddr;
+			while (R_current_addr != 0 && !flag)
+			{
+				if ((compare_blk = readBlockFromDisk(R_current_addr, &buf)) == NULL)
+				{
+					perror("Reading Block Failed!\n");
+					return -1;
+				}
+				for (j = 0; j < blk_size - 1; j++)
+				{
+					if (*(int*)(input_blk + i * 8) == *(int*)(compare_blk + j * 8)
+						&& *(int*)(input_blk + i * 8 + 4) == *(int*)(compare_blk + j * 8 + 4))
+					{
+						flag = 1;
+						break;
+					}
+				}
+				R_current_addr = *(int*)(compare_blk + 60);
+				freeBlockInBuffer(compare_blk, &buf);
+			}
+			if (!flag)
+			{
+				if (output_size >= 7)
+				{
+					*(int*)(output_blk + 60) = save_addr + 1;
+					if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+					{
+						perror("Writing Block Failed!\n");
+						return -1;
+					}
+					printf("\n");
+					save_addr++;
+					output_blk = getNewBlockInBuffer(&buf);
+					output_size = 0;
+				}
+				printf("%d,%d\t", *(int*)(input_blk + i * 8), *(int*)(input_blk + i * 8 + 4));
+				*(int*)(output_blk + output_size * 8) = *(int*)(input_blk + i * 8);
+				*(int*)(output_blk + output_size * 8 + 4) = *(int*)(input_blk + i * 8 + 4);
+				output_size++;
+			}
+		}
+		current_addr = *(int*)(input_blk + 60);
+		freeBlockInBuffer(input_blk, &buf);
+	}
+	for (i = output_size * 2; i < blk_size * 2; i++)
+	{
+		*(int*)(output_blk + 4 * i) = 0;
+	}
+	if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+	{
+		perror("Writing Block Failed!\n");
+		return -1;
+	}
+	printf("\n");
+	freeBuffer(&buf);
 }
 
 void Intersection()
 {
+	Buffer buf;
+	unsigned char* input_blk, *output_blk, *compare_blk;
+	int i, j, current_addr, save_addr, output_size, R_current_addr, flag;
 
+	/*initialize the buffer for relation*/
+	if (!initBuffer(buf_size * 8, blk_size * 8, &buf))
+	{
+		perror("Buffer R Initialization Failed!\n");
+		return -1;
+	}
+
+	/*get a new block in buffer to generate data of relation*/
+	output_blk = getNewBlockInBuffer(&buf);
+
+	/*compare each tuple in S with all tuples in R*/
+	current_addr = Saddr;
+	save_addr = Intersection_addr;
+	output_size = 0;
+	while (current_addr != 0)
+	{
+		if ((input_blk = readBlockFromDisk(current_addr, &buf)) == NULL)
+		{
+			perror("Reading Block Failed!\n");
+			return -1;
+		}
+
+		for (i = 0; i < blk_size - 1; i++)
+		{
+			flag = 0;
+			R_current_addr = Raddr;
+			while (R_current_addr != 0 && !flag)
+			{
+				if ((compare_blk = readBlockFromDisk(R_current_addr, &buf)) == NULL)
+				{
+					perror("Reading Block Failed!\n");
+					return -1;
+				}
+				for (j = 0; j < blk_size - 1; j++)
+				{
+					if (*(int*)(input_blk + i * 8) == *(int*)(compare_blk + j * 8)
+						&& *(int*)(input_blk + i * 8 + 4) == *(int*)(compare_blk + j * 8 + 4))
+					{
+						flag = 1;
+						break;
+					}
+				}
+				R_current_addr = *(int*)(compare_blk + 60);
+				freeBlockInBuffer(compare_blk, &buf);
+			}
+			if (flag)
+			{
+				if (output_size >= 7)
+				{
+					*(int*)(output_blk + 60) = save_addr + 1;
+					if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+					{
+						perror("Writing Block Failed!\n");
+						return -1;
+					}
+					printf("\n");
+					save_addr++;
+					output_blk = getNewBlockInBuffer(&buf);
+					output_size = 0;
+				}
+				printf("%d,%d\t", *(int*)(input_blk + i * 8), *(int*)(input_blk + i * 8 + 4));
+				*(int*)(output_blk + output_size * 8) = *(int*)(input_blk + i * 8);
+				*(int*)(output_blk + output_size * 8 + 4) = *(int*)(input_blk + i * 8 + 4);
+				output_size++;
+			}
+		}
+		current_addr = *(int*)(input_blk + 60);
+		freeBlockInBuffer(input_blk, &buf);
+	}
+	for (i = output_size * 2; i < blk_size * 2; i++)
+	{
+		*(int*)(output_blk + 4 * i) = 0;
+	}
+	if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+	{
+		perror("Writing Block Failed!\n");
+		return -1;
+	}
+	printf("\n");
+	freeBuffer(&buf);
 }
 
+/*S-R*/
 void Difference()
 {
+	Buffer buf;
+	unsigned char* input_blk, *output_blk, *compare_blk;
+	int i, j, current_addr, save_addr, output_size, R_current_addr, flag;
 
+	/*initialize the buffer for relation*/
+	if (!initBuffer(buf_size * 8, blk_size * 8, &buf))
+	{
+		perror("Buffer R Initialization Failed!\n");
+		return -1;
+	}
+
+	/*get a new block in buffer to generate data of relation*/
+	output_blk = getNewBlockInBuffer(&buf);
+
+	save_addr = Difference_addr;
+	output_size = 0;
+	current_addr = Saddr;
+	while (current_addr != 0)
+	{
+		if ((input_blk = readBlockFromDisk(current_addr, &buf)) == NULL)
+		{
+			perror("Reading Block Failed!\n");
+			return -1;
+		}
+
+		for (i = 0; i < blk_size - 1; i++)
+		{
+			flag = 0;
+			R_current_addr = Raddr;
+			while (R_current_addr != 0 && !flag)
+			{
+				if ((compare_blk = readBlockFromDisk(R_current_addr, &buf)) == NULL)
+				{
+					perror("Reading Block Failed!\n");
+					return -1;
+				}
+				for (j = 0; j < blk_size - 1; j++)
+				{
+					if (*(int*)(input_blk + i * 8) == *(int*)(compare_blk + j * 8)
+						&& *(int*)(input_blk + i * 8 + 4) == *(int*)(compare_blk + j * 8 + 4))
+					{
+						flag = 1;
+						break;
+					}
+				}
+				R_current_addr = *(int*)(compare_blk + 60);
+				freeBlockInBuffer(compare_blk, &buf);
+			}
+			if (!flag)
+			{
+				if (output_size >= 7)
+				{
+					*(int*)(output_blk + 60) = save_addr + 1;
+					if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+					{
+						perror("Writing Block Failed!\n");
+						return -1;
+					}
+					printf("\n");
+					save_addr++;
+					output_blk = getNewBlockInBuffer(&buf);
+					output_size = 0;
+				}
+				printf("%d,%d\t", *(int*)(input_blk + i * 8), *(int*)(input_blk + i * 8 + 4));
+				*(int*)(output_blk + output_size * 8) = *(int*)(input_blk + i * 8);
+				*(int*)(output_blk + output_size * 8 + 4) = *(int*)(input_blk + i * 8 + 4);
+				output_size++;
+			}
+		}
+		current_addr = *(int*)(input_blk + 60);
+		freeBlockInBuffer(input_blk, &buf);
+	}
+	for (i = output_size * 2; i < blk_size * 2; i++)
+	{
+		*(int*)(output_blk + 4 * i) = 0;
+	}
+	if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+	{
+		perror("Writing Block Failed!\n");
+		return -1;
+	}
+	printf("\n");
+	freeBuffer(&buf);
 }
 
 int main(int argc,char **argv){
