@@ -1,4 +1,4 @@
-﻿生成启动时间为 2017/6/11 16:06:35。
+﻿生成启动时间为 2017/6/11 20:01:48。
      1>项目“E:\CS\Visual Studio\数据库实验四\数据库实验四\数据库实验四.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          E:\CS\2010\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TC /analyze- /errorReport:prompt main.c
@@ -26,20 +26,38 @@
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1121): warning C4098: “Projection”:“void”函数返回值
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1132): warning C4098: “Projection”:“void”函数返回值
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1152): warning C4098: “Projection”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1186): warning C4098: “Nest_Loop_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1208): warning C4098: “Nest_Loop_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1224): warning C4098: “Nest_Loop_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1241): warning C4098: “Nest_Loop_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1279): warning C4098: “Nest_Loop_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1313): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1318): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1194): warning C4098: “Nest_Loop_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1216): warning C4098: “Nest_Loop_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1232): warning C4098: “Nest_Loop_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1249): warning C4098: “Nest_Loop_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1287): warning C4098: “Nest_Loop_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1306): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1321): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1326): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1349): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1360): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1407): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1431): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1440): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1454): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1470): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1486): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1299): warning C4101: “k”: 未引用的局部变量
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1299): warning C4101: “j”: 未引用的局部变量
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1502): warning C4098: “Hash_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1521): warning C4098: “Hash_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1532): warning C4098: “Hash_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1545): warning C4098: “Hash_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1574): warning C4098: “Hash_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1597): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1602): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
          c:\program files (x86)\windows kits\10\include\10.0.10150.0\ucrt\stdio.h(1270): note: 参见“scanf”的声明
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1361): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1645): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
          c:\program files (x86)\windows kits\10\include\10.0.10150.0\ucrt\stdio.h(1270): note: 参见“scanf”的声明
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(203): warning C4715: “readRelation”: 不是所有的控件路径都返回值
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(245): warning C4715: “readProjection”: 不是所有的控件路径都返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(319): warning C4715: “readIndex”: 不是所有的控件路径都返回值
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(287): warning C4715: “readJoin”: 不是所有的控件路径都返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(319): warning C4715: “readIndex”: 不是所有的控件路径都返回值
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(709): warning C4715: “Hash”: 不是所有的控件路径都返回值
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(628): warning C4715: “Merge_Sort”: 不是所有的控件路径都返回值
        Link:

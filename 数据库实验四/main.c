@@ -19,8 +19,8 @@
 #define Intersection_addr 7000000
 #define Difference_addr 8000000
 #define Temp_addr 9000000
-#define R_sort_merger_addr 10000000
-#define S_sort_merger_addr 11000000
+#define R_merge_sort_addr 10000000
+#define S_merge_sort_addr 11000000
 #define R_index_addr 10100000
 #define S_index_addr 11100000
 #define R_hash_addr 12000000
@@ -1172,6 +1172,14 @@ if ((blk = readBlockFromDisk(addr, &buf)) == NULL)
 perror("readRelation-Reading Block Failed!\n");
 return -1;
 }
+if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+{
+perror("Writing Block Failed!\n");
+return -1;
+}
+save_addr++;
+output_blk = getNewBlockInBuffer(&buf);
+output_size = 0;
 freeBlockInBuffer(blk, &buf);
 freeBuffer(&buf);
 */
@@ -1286,12 +1294,288 @@ void Nest_Loop_Join()
 
 void Sort_Merge_Join()
 {
+	Buffer buf;
+	unsigned char* R_input_blk, *S_input_blk, *output_blk;
+	int i, j, k, R_current_addr, S_current_addr, save_addr, output_size;
+	int shared_key, notfound, R_pos, S_pos, current_pos, current_addr;
 
+	/*initialize the buffer for relation*/
+	if (!initBuffer(buf_size * 8, blk_size * 8, &buf))
+	{
+	perror("Buffer R Initialization Failed!\n");
+	return -1;
+	}
+	/*get a new block in buffer to generate data of relation*/
+	output_blk = getNewBlockInBuffer(&buf);
+
+	R_current_addr = R_merge_sort_addr;
+	S_current_addr = S_merge_sort_addr;
+	save_addr = Sort_Merge_Join_addr;
+	output_size = 0;
+	notfound = 1;
+	S_pos = R_pos = 0;
+	shared_key = 0;
+	if ((R_input_blk = readBlockFromDisk(R_current_addr, &buf)) == NULL)
+	{
+		perror("Reading Block Failed!\n");
+		return -1;
+	}
+	if ((S_input_blk = readBlockFromDisk(S_current_addr, &buf)) == NULL)
+	{
+		perror("Reading Block Failed!\n");
+		return -1;
+	}
+	while (R_current_addr != 0 && S_current_addr != 0)
+	{
+		/*find the minimum shared key,and move to the first two tuples with shared key*/
+		while (notfound)
+		{
+			if (*(int*)(R_input_blk + R_pos * 8) < *(int*)(S_input_blk + S_pos * 8))
+			{
+				shared_key = *(int*)(S_input_blk + S_pos * 8);
+			}
+			else
+			{
+				shared_key = *(int*)(R_input_blk + R_pos * 8);
+			}
+
+			while (*(int*)(R_input_blk + (blk_size - 2) * 8) < shared_key)
+			{
+				R_current_addr = *(int*)(R_input_blk + 60);
+				freeBlockInBuffer(R_input_blk, &buf);
+				if ((R_input_blk = readBlockFromDisk(R_current_addr, &buf)) == NULL)
+				{
+					perror("Reading Block Failed!\n");
+					return -1;
+				}
+				R_pos = 0;
+			}
+			while (*(int*)(S_input_blk + (blk_size - 2) * 8) < shared_key)
+			{
+				S_current_addr = *(int*)(S_input_blk + 60);
+				freeBlockInBuffer(S_input_blk, &buf);
+				if ((S_input_blk = readBlockFromDisk(S_current_addr, &buf)) == NULL)
+				{
+					perror("Reading Block Failed!\n");
+					return -1;
+				}
+				S_pos = 0;
+			}
+			for (; R_pos < blk_size - 1; R_pos++)
+			{
+				if (*(int*)(R_input_blk + R_pos * 8) == shared_key)
+				{
+					notfound = 0;
+					break;
+				}
+				else if(*(int*)(R_input_blk + R_pos * 8) > shared_key)
+				{
+					notfound = 1;
+					shared_key = *(int*)(R_input_blk + R_pos * 8);
+					break;
+				}
+			}
+			for (; S_pos < blk_size - 1; S_pos++)
+			{
+				if (*(int*)(S_input_blk + S_pos * 8) == shared_key)
+				{
+					notfound = 0;
+					break;
+				}
+				else if (*(int*)(S_input_blk + S_pos * 8) > shared_key)
+				{
+					notfound = 1;
+					shared_key = *(int*)(S_input_blk + S_pos * 8);
+					break;
+				}
+			}
+		}
+		/*begin joining with shared key*/
+		while (!notfound)
+		{
+			current_pos = S_pos;
+			current_addr = S_current_addr;
+			/*for each tuple of R with shared key,join all tuples of S with shared key*/
+			while (*(int*)(S_input_blk + current_pos * 8) == shared_key)
+			{
+				if (output_size >= blk_size*2/3)
+				{
+					*(int*)(output_blk + 60) = save_addr + 1;
+					if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+					{
+						perror("Writing Block Failed!\n");
+						return -1;
+					}
+					printf("\n");
+					save_addr++;
+					output_blk = getNewBlockInBuffer(&buf);
+					output_size = 0;
+				}
+				printf("%d,%d,%d\t", *(int*)(R_input_blk + R_pos * 8), *(int*)(R_input_blk + R_pos * 8 + 4), *(int*)(S_input_blk + current_pos * 8 + 4));
+				*(int*)(output_blk + output_size * 12) = *(int*)(R_input_blk + R_pos * 8);
+				*(int*)(output_blk + output_size * 12 + 4) = *(int*)(R_input_blk + R_pos * 8 + 4);
+				*(int*)(output_blk + output_size * 12 + 8) = *(int*)(S_input_blk + current_pos * 8 + 4);
+				output_size++;
+				current_pos++;
+				if (current_pos >= 7)
+				{
+					current_addr = *(int*)(S_input_blk + 60);
+					if (current_addr == 0)
+					{
+						break;
+					}
+					freeBlockInBuffer(S_input_blk, &buf);
+					if ((S_input_blk = readBlockFromDisk(current_addr, &buf)) == NULL)
+					{
+						perror("Reading Block Failed!\n");
+						return -1;
+					}
+					current_pos = 0;
+				}
+			}
+			freeBlockInBuffer(S_input_blk, &buf);
+			if ((S_input_blk = readBlockFromDisk(S_current_addr, &buf)) == NULL)
+			{
+				perror("Reading Block Failed!\n");
+				return -1;
+			}
+			R_pos++;
+			if (R_pos >= 7)
+			{
+				R_current_addr = *(int*)(R_input_blk + 60);
+				if (R_current_addr == 0)
+				{
+					break;
+				}
+				freeBlockInBuffer(R_input_blk, &buf);
+				if ((R_input_blk = readBlockFromDisk(R_current_addr, &buf)) == NULL)
+				{
+					perror("Reading Block Failed!\n");
+					return -1;
+				}
+				R_pos = 0;
+			}
+			if (*(int*)(R_input_blk + R_pos * 8) > shared_key)
+			{
+				while (*(int*)(S_input_blk + S_pos * 8) == shared_key)
+				{
+					S_pos++;
+					if (S_pos >= 7)
+					{
+						S_current_addr = *(int*)(S_input_blk + 60);
+						freeBlockInBuffer(S_input_blk, &buf);
+						if ((S_input_blk = readBlockFromDisk(S_current_addr, &buf)) == NULL)
+						{
+							perror("Reading Block Failed!\n");
+							return -1;
+						}
+						S_pos = 0;
+					}
+				}
+				notfound = 1;
+			}
+		}
+	}
+	for (i = output_size * 3; i < blk_size * 2; i++)
+	{
+		*(int*)(output_blk + i * 4) = 0;
+	}
+	if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+	{
+		perror("Writing Block Failed!\n");
+		return -1;
+	}
+	printf("\n");
+	freeBuffer(&buf);
 }
 
 void Hash_Join()
 {
+	Buffer buf;
+	unsigned char* hash_blk, *output_blk, *input_blk;
+	int i, j, k, hash_addr[hash_size], current_hash_addr, current_addr, save_addr, output_size;
 
+	/*initialize the buffer for relation*/
+	if (!initBuffer(buf_size * 8, blk_size * 8, &buf))
+	{
+		perror("Buffer R Initialization Failed!\n");
+		return -1;
+	}
+
+	/*put R in buckets*/
+	for (i = 0; i < hash_size; i++)
+	{
+		hash_addr[i] = R_hash_addr + i;
+	}
+	/*get a new block in buffer to generate data of relation*/
+	output_blk = getNewBlockInBuffer(&buf);
+
+	current_addr = Saddr;
+	output_size = 0;
+	save_addr = Hash_Join_addr;
+	while (current_addr != 0)
+	{
+		if ((input_blk = readBlockFromDisk(current_addr, &buf)) == NULL)
+		{
+			perror("Reading Block Failed!\n");
+			return -1;
+		}
+		for (i = 0; i < blk_size - 1; i++)
+		{
+			j = *(int*)(input_blk + 8 * i) % 4;
+			current_hash_addr = hash_addr[j];
+			while (current_hash_addr != 0)
+			{
+				if ((hash_blk = readBlockFromDisk(current_hash_addr, &buf)) == NULL)
+				{
+					perror("Reading Block Failed!\n");
+					return -1;
+				}
+
+				for (k = 0; k < blk_size - 1; k++)
+				{
+					if (*(int*)(hash_blk + k * 8) == *(int*)(input_blk + i * 8))
+					{
+						if (output_size >= blk_size * 2 / 3)
+						{
+							*(int*)(output_blk + 60) = save_addr + 1;
+							if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+							{
+								perror("Writing Block Failed!\n");
+								return -1;
+							}
+							printf("\n");
+							save_addr++;
+							output_blk = getNewBlockInBuffer(&buf);
+							output_size = 0;
+						}
+						printf("%d,%d,%d\t", *(int*)(input_blk + i * 8), *(int*)(input_blk + i * 8 + 4), *(int*)(hash_blk + k * 8 + 4));
+						*(int*)(output_blk + output_size * 12) = *(int*)(input_blk + i * 8);
+						*(int*)(output_blk + output_size * 12 + 4) = *(int*)(input_blk + i * 8 + 4);
+						*(int*)(output_blk + output_size * 12 + 8) = *(int*)(hash_blk + k * 8 + 4);
+						output_size++;
+					}
+				}
+				current_hash_addr = *(int*)(hash_blk + 60);
+				freeBlockInBuffer(hash_blk, &buf);
+			}
+		}
+		current_addr = *(int*)(input_blk + 60);
+		freeBlockInBuffer(input_blk, &buf);
+	}
+
+	for (i = output_size * 3; i < blk_size * 2; i++)
+	{
+		*(int*)(output_blk + i * 4) = 0;
+	}
+	if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+	{
+		perror("Writing Block Failed!\n");
+		return -1;
+	}
+	printf("\n");
+
+	freeBuffer(&buf);
 }
 
 void Union()
@@ -1329,13 +1613,13 @@ int main(int argc,char **argv){
     }
     printf("关系R:\n");
     readRelation(Raddr);
-    Merge_Sort(Raddr,1,R_sort_merger_addr);
-	create_index(R_sort_merger_addr, 1, R_index_addr);
+    Merge_Sort(Raddr,1,R_merge_sort_addr);
+	create_index(R_merge_sort_addr, 1, R_index_addr);
 	Hash(Raddr, 1, R_hash_addr);
 	printf("----------index----------\n");
 	readIndex(R_index_addr);
 	printf("--------merge sort--------\n");
-    readRelation(R_sort_merger_addr);
+    readRelation(R_merge_sort_addr);
 	printf("-----------hash-----------\n");
 	for (i = 0; i < hash_size; i++)
 	{
@@ -1343,13 +1627,13 @@ int main(int argc,char **argv){
 	}
     printf("关系S:\n");
     readRelation(Saddr);
-    Merge_Sort(Saddr,1,S_sort_merger_addr);
-	create_index(S_sort_merger_addr, 1, S_index_addr);
+    Merge_Sort(Saddr,1, S_merge_sort_addr);
+	create_index(S_merge_sort_addr, 1, S_index_addr);
 	Hash(Saddr, 1, S_hash_addr);
 	printf("----------index----------\n");
 	readIndex(S_index_addr);
 	printf("--------merge sort--------\n");
-    readRelation(S_sort_merger_addr);
+    readRelation(S_merge_sort_addr);
 	printf("-----------hash-----------\n");
 	for (i = 0; i < hash_size; i++)
 	{
@@ -1367,6 +1651,7 @@ int main(int argc,char **argv){
             }
             case 2:{
                 Binary_Search();
+				readRelation(Binary_Search_addr);
                 break;
             }case 3:{
                 Index_Search();
@@ -1390,12 +1675,15 @@ int main(int argc,char **argv){
                 break;
             }case 8:{
                 Union();
+				readRelation(Union_addr);
                 break;
             }case 9:{
                 Intersection();
+				readRelation(Intersection_addr);
                 break;
             }case 10:{
                 Difference();
+				readRelation(Difference_addr);
                 break;
             }case 11:{
                 choice = -1;
