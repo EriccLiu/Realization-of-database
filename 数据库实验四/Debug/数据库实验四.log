@@ -1,4 +1,4 @@
-﻿生成启动时间为 2017/6/11 23:37:34。
+﻿生成启动时间为 2017/6/12 13:17:48。
      1>项目“E:\CS\Visual Studio\数据库实验四\数据库实验四\数据库实验四.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          E:\CS\2010\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TC /analyze- /errorReport:prompt main.c
@@ -9,67 +9,81 @@
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(788): warning C4098: “Linear_Search”:“void”函数返回值
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(802): warning C4098: “Linear_Search”:“void”函数返回值
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(826): warning C4098: “Linear_Search”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(848): warning C4098: “create_index”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(866): warning C4098: “create_index”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(904): warning C4098: “create_index”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(842): warning C4101: “j”: 未引用的局部变量
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(920): warning C4098: “Index_Search”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(938): warning C4098: “Index_Search”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(970): warning C4098: “Index_Search”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(982): warning C4098: “Index_Search”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1016): warning C4098: “Index_Search”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1048): warning C4098: “Index_Search”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1060): warning C4098: “Index_Search”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1091): warning C4098: “Index_Search”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(913): warning C4101: “index_blk”: 未引用的局部变量
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1107): warning C4098: “Projection”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1121): warning C4098: “Projection”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1132): warning C4098: “Projection”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1152): warning C4098: “Projection”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1194): warning C4098: “Nest_Loop_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1216): warning C4098: “Nest_Loop_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1232): warning C4098: “Nest_Loop_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1249): warning C4098: “Nest_Loop_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1287): warning C4098: “Nest_Loop_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1306): warning C4098: “Sort_Merge_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1321): warning C4098: “Sort_Merge_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1326): warning C4098: “Sort_Merge_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1349): warning C4098: “Sort_Merge_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1360): warning C4098: “Sort_Merge_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1407): warning C4098: “Sort_Merge_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1431): warning C4098: “Sort_Merge_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1440): warning C4098: “Sort_Merge_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1454): warning C4098: “Sort_Merge_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1470): warning C4098: “Sort_Merge_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1486): warning C4098: “Sort_Merge_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1299): warning C4101: “k”: 未引用的局部变量
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1299): warning C4101: “j”: 未引用的局部变量
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1502): warning C4098: “Hash_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1521): warning C4098: “Hash_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1532): warning C4098: “Hash_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1545): warning C4098: “Hash_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1574): warning C4098: “Hash_Join”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1591): warning C4098: “Union”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1606): warning C4098: “Union”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1621): warning C4098: “Union”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1653): warning C4098: “Union”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1665): warning C4098: “Union”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1687): warning C4098: “Union”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1710): warning C4098: “Union”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1726): warning C4098: “Intersection”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1741): warning C4098: “Intersection”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1753): warning C4098: “Intersection”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1775): warning C4098: “Intersection”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1798): warning C4098: “Intersection”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1815): warning C4098: “Difference”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1829): warning C4098: “Difference”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1841): warning C4098: “Difference”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1863): warning C4098: “Difference”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1886): warning C4098: “Difference”:“void”函数返回值
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1893): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1898): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(841): warning C4098: “Binary_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(858): warning C4098: “Binary_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(874): warning C4098: “Binary_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(891): warning C4098: “Binary_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(931): warning C4098: “Binary_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(948): warning C4098: “Binary_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(970): warning C4098: “Binary_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(978): warning C4047: “=”:“int”与“int *”的间接级别不同
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(986): warning C4098: “Binary_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1001): warning C4098: “Binary_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1041): warning C4098: “Binary_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1058): warning C4098: “Binary_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1076): warning C4098: “Binary_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(835): warning C4101: “j”: 未引用的局部变量
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1094): warning C4098: “create_index”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1112): warning C4098: “create_index”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1150): warning C4098: “create_index”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1088): warning C4101: “j”: 未引用的局部变量
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1166): warning C4098: “Index_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1184): warning C4098: “Index_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1216): warning C4098: “Index_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1228): warning C4098: “Index_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1262): warning C4098: “Index_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1294): warning C4098: “Index_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1306): warning C4098: “Index_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1337): warning C4098: “Index_Search”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1159): warning C4101: “index_blk”: 未引用的局部变量
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1353): warning C4098: “Projection”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1367): warning C4098: “Projection”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1378): warning C4098: “Projection”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1398): warning C4098: “Projection”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1410): warning C4098: “Nest_Loop_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1432): warning C4098: “Nest_Loop_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1448): warning C4098: “Nest_Loop_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1465): warning C4098: “Nest_Loop_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1503): warning C4098: “Nest_Loop_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1522): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1537): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1542): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1565): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1576): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1623): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1647): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1656): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1670): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1686): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1702): warning C4098: “Sort_Merge_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1515): warning C4101: “k”: 未引用的局部变量
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1515): warning C4101: “j”: 未引用的局部变量
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1718): warning C4098: “Hash_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1737): warning C4098: “Hash_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1748): warning C4098: “Hash_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1761): warning C4098: “Hash_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1790): warning C4098: “Hash_Join”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1807): warning C4098: “Union”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1822): warning C4098: “Union”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1837): warning C4098: “Union”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1869): warning C4098: “Union”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1881): warning C4098: “Union”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1903): warning C4098: “Union”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1926): warning C4098: “Union”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1942): warning C4098: “Intersection”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1957): warning C4098: “Intersection”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1969): warning C4098: “Intersection”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1991): warning C4098: “Intersection”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(2014): warning C4098: “Intersection”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(2031): warning C4098: “Difference”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(2045): warning C4098: “Difference”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(2057): warning C4098: “Difference”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(2079): warning C4098: “Difference”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(2102): warning C4098: “Difference”:“void”函数返回值
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(2109): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(2114): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
          c:\program files (x86)\windows kits\10\include\10.0.10150.0\ucrt\stdio.h(1270): note: 参见“scanf”的声明
-     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(1941): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(2157): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
          c:\program files (x86)\windows kits\10\include\10.0.10150.0\ucrt\stdio.h(1270): note: 参见“scanf”的声明
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(203): warning C4715: “readRelation”: 不是所有的控件路径都返回值
      1>e:\cs\visual studio\数据库实验四\数据库实验四\main.c(245): warning C4715: “readProjection”: 不是所有的控件路径都返回值
@@ -85,4 +99,4 @@
 
 已成功生成。
 
-已用时间 00:00:01.66
+已用时间 00:00:00.53

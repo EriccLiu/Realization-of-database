@@ -830,7 +830,253 @@ void Linear_Search()
 //¶þÔªËÑË÷Ëã·¨
 void Binary_Search()
 {
+	Buffer buf;
+	unsigned char* input_blk, *output_blk;
+	int i, j, fileNum, current_addr, save_addr, notfound, max, min, mid, output_size;
 
+	/*initialize the buffer for relation*/
+	if (!initBuffer(buf_size * 8, blk_size * 8, &buf))
+	{
+		perror("Buffer R Initialization Failed!\n");
+		return -1;
+	}
+
+	/*get a new block in buffer to generate data of relation*/
+	output_blk = getNewBlockInBuffer(&buf);
+
+	/*R.A = 40*/
+	printf("--------R.A=40--------\n");
+	/*count the number of files that save current relation*/
+	current_addr = R_merge_sort_addr;
+	fileNum = 0;
+	while (current_addr != 0)
+	{
+		fileNum++;
+		if ((input_blk = readBlockFromDisk(current_addr, &buf)) == NULL)
+		{
+			perror("Reading Block Failed!\n");
+			return -1;
+		}
+		current_addr = *(int*)(input_blk + 60);
+		freeBlockInBuffer(input_blk, &buf);
+	}
+
+	/*record address of each file of the relation*/
+	i = 0;
+	int *addrs = (int*)malloc(fileNum*sizeof(int));
+	current_addr = R_merge_sort_addr;
+	while (current_addr != 0)
+	{
+		addrs[i++] = current_addr;
+		if ((input_blk = readBlockFromDisk(current_addr, &buf)) == NULL)
+		{
+			perror("Reading Block Failed!\n");
+			return -1;
+		}
+		current_addr = *(int*)(input_blk + 60);
+		freeBlockInBuffer(input_blk, &buf);
+	}
+
+	notfound = 1;
+	max = fileNum-1;
+	min = 0;
+	output_size = 0;
+	save_addr = Binary_Search_addr;
+	while (notfound)
+	{
+		mid = (max + min) / 2;
+		if ((input_blk = readBlockFromDisk(addrs[mid], &buf)) == NULL)
+		{
+			perror("Reading Block Failed!\n");
+			return -1;
+		}
+		for (i = 0; i < blk_size - 2; i++)
+		{
+			if (*(int*)(input_blk + 8 * i) > *(int*)(input_blk + 8 * i + 8))
+			{
+				break;
+			}
+		}
+		if (*(int*)(input_blk + i * 8) < 40)
+		{
+			if (min == fileNum-1)
+			{
+				notfound = 0;
+				printf("not found!\n");
+				break;
+			}
+			min = mid + 1;
+		}
+		else if (*(int*)(input_blk) > 40)
+		{
+			if (max == 0)
+			{
+				notfound = 0;
+				printf("not found!\n");
+				break;
+			}
+			max = mid - 1;
+		}
+		else
+		{
+			for (i = 0; i < blk_size - 1; i++)
+			{
+				if (*(int*)(input_blk + 8 * i) == 40)
+				{
+					if (output_size >= 7)
+					{
+						if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+						{
+							perror("Writing Block Failed!\n");
+							return -1;
+						}
+						printf("\n");
+						save_addr++;
+						output_blk = getNewBlockInBuffer(&buf);
+						output_size = 0;
+					}
+					printf("%d,%d\t", *(int*)(input_blk + 8 * i), *(int*)(input_blk + 8 * i + 4));
+					*(int*)(output_blk + output_size * 8) = *(int*)(input_blk + 8 * i);
+					*(int*)(output_blk + output_size * 8 + 4) = *(int*)(input_blk + 8 * i + 4);
+					output_size++;
+					if (i == blk_size - 2 && mid != fileNum - 1)
+					{
+						freeBlockInBuffer(input_blk, &buf);
+						if ((input_blk = readBlockFromDisk(addrs[mid + 1], &buf)) == NULL)
+						{
+							perror("Reading Block Failed!\n");
+							return -1;
+						}
+						i = 0;
+					}
+				}
+			}
+			break;
+		}
+		freeBlockInBuffer(input_blk, &buf);
+	}
+
+	/*S.C = 60*/
+	printf("\n--------S.C=60--------\n");
+	/*count the number of files that save current relation*/
+	current_addr = S_merge_sort_addr;
+	fileNum = 0;
+	while (current_addr != 0)
+	{
+		fileNum++;
+		if ((input_blk = readBlockFromDisk(current_addr, &buf)) == NULL)
+		{
+			perror("Reading Block Failed!\n");
+			return -1;
+		}
+		current_addr = *(int*)(input_blk + 60);
+		freeBlockInBuffer(input_blk, &buf);
+	}
+
+	/*record address of each file of the relation*/
+	i = 0;
+	*addrs = (int*)malloc(fileNum*sizeof(int));
+	current_addr = S_merge_sort_addr;
+	while (current_addr != 0)
+	{
+		addrs[i++] = current_addr;
+		if ((input_blk = readBlockFromDisk(current_addr, &buf)) == NULL)
+		{
+			perror("Reading Block Failed!\n");
+			return -1;
+		}
+		current_addr = *(int*)(input_blk + 60);
+		freeBlockInBuffer(input_blk, &buf);
+	}
+
+	notfound = 1;
+	max = fileNum - 1;
+	min = 0;
+	while (notfound)
+	{
+		mid = (max + min) / 2;
+		if ((input_blk = readBlockFromDisk(addrs[mid], &buf)) == NULL)
+		{
+			perror("Reading Block Failed!\n");
+			return -1;
+		}
+		for (i = 0; i < blk_size - 2; i++)
+		{
+			if (*(int*)(input_blk + 8 * i) > *(int*)(input_blk + 8 * i + 8))
+			{
+				break;
+			}
+		}
+		if (*(int*)(input_blk + i * 8) < 60)
+		{
+			if (min == fileNum - 1)
+			{
+				notfound = 0;
+				printf("not found!\n");
+				break;
+			}
+			min = mid + 1;
+		}
+		else if (*(int*)(input_blk) > 60)
+		{
+			if (max == 0)
+			{
+				notfound = 0;
+				printf("not found!\n");
+				break;
+			}
+			max = mid - 1;
+		}
+		else
+		{
+			for (i = 0; i < blk_size - 1; i++)
+			{
+				if (*(int*)(input_blk + 8 * i) == 60)
+				{
+					if (output_size >= 7)
+					{
+						if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+						{
+							perror("Writing Block Failed!\n");
+							return -1;
+						}
+						printf("\n");
+						save_addr++;
+						output_blk = getNewBlockInBuffer(&buf);
+						output_size = 0;
+					}
+					printf("%d,%d\t", *(int*)(input_blk + 8 * i), *(int*)(input_blk + 8 * i + 4));
+					*(int*)(output_blk + output_size * 8) = *(int*)(input_blk + 8 * i);
+					*(int*)(output_blk + output_size * 8 + 4) = *(int*)(input_blk + 8 * i + 4);
+					output_size++;
+					if (i == blk_size - 2 && mid != fileNum - 1)
+					{
+						freeBlockInBuffer(input_blk, &buf);
+						if ((input_blk = readBlockFromDisk(addrs[mid + 1], &buf)) == NULL)
+						{
+							perror("Reading Block Failed!\n");
+							return -1;
+						}
+						i = 0;
+					}
+				}
+			}
+			break;
+		}
+		freeBlockInBuffer(input_blk, &buf);
+	}
+
+	for (i = output_size * 2; i < blk_size * 2; i++)
+	{
+		*(int*)(output_blk + 4 * i) = 0;
+	}
+	if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
+	{
+		perror("Writing Block Failed!\n");
+		return -1;
+	}
+	printf("\n");
+	freeBuffer(&buf);
 }
 
 /*parse index*/
@@ -1068,7 +1314,7 @@ void Index_Search()
 					*(int*)(output_blk + 8 * output_size + 4) = *(int*)(input_blk + 8 * i + 4);
 					output_size++;
 				}
-				else if (*(int*)(input_blk + 8 * i) > 40)
+				else if (*(int*)(input_blk + 8 * i) > 60)
 				{
 					pos = -1;
 				}
@@ -1153,36 +1399,6 @@ void Projection()
 	}
 	freeBuffer(&buf);
 }
-
-/*Buffer buf;
-unsigned char* blk;
-
-/*initialize the buffer for relation*
-if (!initBuffer(buf_size * 8, blk_size * 8, &buf))
-{
-perror("Buffer R Initialization Failed!\n");
-return -1;
-}
-/*get a new block in buffer to generate data of relation*
-blk = getNewBlockInBuffer(&buf);
-
-/* Read the block from the hard disk *
-if ((blk = readBlockFromDisk(addr, &buf)) == NULL)
-{
-perror("Reading Block Failed!\n");
-return -1;
-}
-if (writeBlockToDisk(output_blk, save_addr, &buf) != 0)
-{
-perror("Writing Block Failed!\n");
-return -1;
-}
-save_addr++;
-output_blk = getNewBlockInBuffer(&buf);
-output_size = 0;
-freeBlockInBuffer(blk, &buf);
-freeBuffer(&buf);
-*/
 
 void Nest_Loop_Join()
 {
